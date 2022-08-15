@@ -1,0 +1,84 @@
+body
+{
+    background: linear-gradient(white, #305341);
+}
+img 
+{
+    width: 100px;
+    height: 100px;
+}
+li.weatherParams
+{
+    background-color: rgb(30, 69, 69);
+    width: 100%;
+    margin-top: 0.5%;
+    margin-bottom: 0.5%;
+    color: white;
+}
+ul
+{
+    list-style-type: none;
+    padding: 0;
+}
+h1, h2
+{
+    color: rgb(12, 26, 26);
+}
+button
+{
+    background-color: rgb(30, 69, 69);
+    color: white;
+    border: 0;
+    height: fit-content;
+}
+.headTitle
+{
+    width: fit-content;
+    padding-right: 10%;
+}
+.head, .favouritesHead
+{
+    align-items: center;
+}
+.mainCity, .favouriteCityInfo, .mainParams, .mainCityDescription, .head, .favourites, .favouritesHead
+{
+    display: flex;
+    flex-direction: row;
+}
+.favouriteCityInfo, .mainParams, .mainCityDescription, .favourites
+{
+    justify-content: space-around;
+}
+.favouritesHead, .mainCity, .head
+{
+    justify-content: center;
+}
+.mainParams, .favourites
+{
+    flex-wrap: wrap;
+}
+.mainParams
+{
+    align-content: center;
+}
+.delete, .add
+{
+    border-radius: 50%;
+}
+.favouriteCity
+{
+    width: 40%;
+    padding: 1%;
+}
+.favouriteCityInfo
+{
+    margin-bottom: 5%;
+}
+.mainCityInfo
+{
+    margin-right: 5%;
+}
+.favouritesHead
+{
+    margin: 5%;
+}
