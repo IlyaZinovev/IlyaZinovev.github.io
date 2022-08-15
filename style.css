@@ -36,11 +36,11 @@ button
     width: fit-content;
     padding-right: 10%;
 }
-.head, .favouritesHead
+.head, .favouritesHead, .mainParams
 {
     align-items: center;
 }
-.mainCity, .favouriteCityInfo, .mainParams, .mainCityDescription, .head, .favourites, .favouritesHead
+.mainCity, .favouriteCityInfo, .mainParams, .mainCityDescription, .head, .favourites, .favouritesHead, .weatherParams
 {
     display: flex;
     flex-direction: row;
@@ -53,13 +53,13 @@ button
 {
     justify-content: center;
 }
+.weatherParams
+{
+    justify-content: space-between;
+}
 .mainParams, .favourites
 {
     flex-wrap: wrap;
-}
-.mainParams
-{
-    align-content: center;
 }
 .delete, .add
 {
@@ -81,4 +81,8 @@ button
 .favouritesHead
 {
     margin: 5%;
+}
+.find
+{
+    margin: 2%;
 }
