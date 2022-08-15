@@ -2,10 +2,15 @@ body
 {
     background: linear-gradient(white, #305341);
 }
-img 
+.favouriteIcon
 {
     width: 100px;
     height: 100px;
+}
+.mainIcon
+{
+    width: 150px;
+    height: 150px;
 }
 li.weatherParams
 {
@@ -45,7 +50,7 @@ button
     display: flex;
     flex-direction: row;
 }
-.favouriteCityInfo, .mainParams, .mainCityDescription, .favourites
+.favouriteCityInfo, .mainCityDescription, .favourites
 {
     justify-content: space-around;
 }
@@ -85,4 +90,35 @@ button
 .find
 {
     margin: 2%;
+}
+p{
+    margin: 0;
+}
+@media screen and (max-width: 480px)
+{
+    .mainCity, .favouritesHead
+    {
+        display: inline;
+    }
+    .favouriteIcon
+    {
+        height: 50px;
+        width: 50px;
+    }
+    .mainIcon
+    {
+        height: 100px;
+        width: 100px;
+    }
+}
+@media screen and (max-width: 768px)
+{
+    .favourites
+    {
+        display: inline;
+    }
+    .favouriteCity
+    {
+        width: 100%
+    }
 }
