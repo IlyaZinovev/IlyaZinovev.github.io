@@ -1,7 +1,8 @@
-body
+html
 {
     background: linear-gradient(white, #305341);
-}
+    height: 100%;
+}   
 .favouriteIcon
 {
     width: 100px;
@@ -12,7 +13,7 @@ body
     width: 150px;
     height: 150px;
 }
-li.weatherParams
+.weatherParam
 {
     background-color: rgb(30, 69, 69);
     width: 100%;
@@ -45,20 +46,20 @@ button
 {
     align-items: center;
 }
-.mainCity, .favouriteCityInfo, .mainParams, .mainCityDescription, .head, .favourites, .favouritesHead, .weatherParams
+.mainCity, .favouriteCityInfo, .mainParams, .mainCityDescription, .head, .favourites, .favouritesHead, .weatherParam
 {
     display: flex;
     flex-direction: row;
 }
-.favouriteCityInfo, .mainCityDescription, .favourites
+.favouriteCityInfo, .favourites
 {
     justify-content: space-around;
 }
-.favouritesHead, .mainCity, .head
+.favouritesHead, .head, .mainCity
 {
     justify-content: center;
 }
-.weatherParams
+.weatherParam, .mainCityDescription
 {
     justify-content: space-between;
 }
@@ -82,6 +83,7 @@ button
 .mainCityInfo
 {
     margin-right: 5%;
+    width: 15%;
 }
 .favouritesHead
 {
@@ -91,8 +93,46 @@ button
 {
     margin: 2%;
 }
-p{
+p
+{
     margin: 0;
+}
+.mainParams
+{
+    width: 30%;
+}
+.mainCityInfo
+{
+    width: fit-content;
+}
+@media screen and (max-width: 768px)
+{
+    .favourites
+    {
+        display: inline;
+    }
+    .favouriteCity
+    {
+        width: 100%
+    }
+    .mainCity
+    {
+        justify-content: space-evenly;
+    }
+    .mainParams
+    {
+        width: 50%;
+    }
+    .mainIcon
+    {
+        width: 120px;
+        height: 120px;
+    }
+    .favouriteIcon
+    {
+        width: 75px;
+        height: 75px;
+    }
 }
 @media screen and (max-width: 480px)
 {
@@ -105,20 +145,21 @@ p{
         height: 50px;
         width: 50px;
     }
-    .mainIcon
+    .mainCityInfo
     {
-        height: 100px;
-        width: 100px;
+        width: 100%;
     }
-}
-@media screen and (max-width: 768px)
-{
-    .favourites
+    .updateLocation
     {
-        display: inline;
+        background-image: url("imgs/arrow.jpg");
+        background-size: cover;
+        width: 30px;
+        height: 30px;
+        font-size: 0;
     }
-    .favouriteCity
+    .mainParams
     {
         width: 100%
     }
 }
+
