@@ -3,13 +3,21 @@ const BASE_URL = "http://api.weatherapi.com/v1/current.json?key=" + API_KEY + "&
 
 async function LoadData(city)
 {
-    try {
+    try
+    {
         let url = BASE_URL + city;
         let res = await fetch(url);
+        if (res.status === 400)
+        {
+            throw new Error();
+        }
         let data = await res.json();
         return data;
-    }catch(err) {
-        console.error(err);
+    }
+    catch(err)
+    {
+        window.alert("There is no city like that!");
+        return null;
     }
 };
 
@@ -18,15 +26,20 @@ function UpdateLocation()
     let position = navigator.geolocation.getCurrentPosition(UpdateMainCity);
 }
 
-function AddFavouriteCity()
+async function AddFavouriteCity()
 {
-    let input = document.getElementsByClassName("find")[0];
+    let input = document.querySelector(".find");
+    let data = await LoadData(input.value);
+    input.value = "";
+    if (data === null)
+    {
+        return;
+    }
     let city = document.getElementsByClassName("favouriteTemplate")[0].content.cloneNode(true);
     let favourites = document.getElementsByClassName("favourites")[0];
     favourites.appendChild(city);
     UpdateBackground();
-    FillFavouriteCity();
-    input.value = "";
+    CreateFavouriteCity(data);
 }
 
 function FillCity(data, city)
@@ -40,12 +53,17 @@ function FillCity(data, city)
     city.querySelector(".coordinates").innerHTML = data["location"]["lat"] + ", " + data["location"]["lon"];
 }
 
-async function FillFavouriteCity()
+function CreateFavouriteCity(data)
 {
-    let name = document.querySelector(".find").value;
-    data = await LoadData(name);
-    let city = document.querySelector(".favourites");
-    FillCity(data, city.children[city.children.length - 1]);
+    let cities = document.querySelector(".favourites");
+    let city = cities.children[cities.children.length - 1];
+    FillCity(data, city);
+    let deleteButton = city.querySelector(".delete");
+    deleteButton.addEventListener("click", function(event)
+    {
+        city.remove();
+        UpdateBackground();
+    });
 }
 
 async function UpdateMainCity(position)
@@ -59,11 +77,12 @@ async function UpdateMainCity(position)
 function UpdateBackground()
 {
     let site = document.querySelector("html");
-    let currentHeight = site.offsetHeight;
     site.style.height = "fit-content";
-    if (site.offsetHeight < currentHeight)
+    let heightContent = site.offsetHeight;
+    site.style.height = "100%";
+    if (site.offsetHeight < heightContent)
     {
-        site.style.height = "100%";
+        site.style.height = "fit-content";
     }
 }
 
