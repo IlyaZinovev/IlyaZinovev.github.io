@@ -42,7 +42,7 @@ button
     width: fit-content;
     padding-right: 10%;
 }
-.head, .favouritesHead, .mainParams
+.head, .favouritesHead, .mainParams, .favouriteCityInfo
 {
     align-items: center;
 }
@@ -104,6 +104,10 @@ p
 .mainCityInfo
 {
     width: fit-content;
+}
+.temperature
+{
+    margin: 10%;
 }
 @media screen and (max-width: 768px)
 {

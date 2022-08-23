@@ -7,7 +7,7 @@ async function LoadData(city)
     {
         let url = BASE_URL + city;
         let res = await fetch(url);
-        if (res.status === 400)
+        if (res.status != 200)
         {
             throw new Error();
         }
@@ -26,7 +26,7 @@ function UpdateLocation()
     let position = navigator.geolocation.getCurrentPosition(UpdateMainCity);
 }
 
-async function AddFavouriteCity()
+async function ParseName()
 {
     let input = document.querySelector(".find");
     let data = await LoadData(input.value);
@@ -35,8 +35,29 @@ async function AddFavouriteCity()
     {
         return;
     }
-    let city = document.getElementsByClassName("favouriteTemplate")[0].content.cloneNode(true);
-    let favourites = document.getElementsByClassName("favourites")[0];
+    let cities = GetCitiesFromStorage();
+    let name = data["location"]["name"];
+    if (cities.includes(name)) {
+        window.alert("You already have this city in favourites");
+        return;
+    }
+    cities.push(name);
+    UpdateStorage(cities);
+    AddFavouriteCity(undefined, data);
+}
+
+async function AddFavouriteCity(name=null, data=null)
+{
+    if (data === null)
+    {
+        data = await LoadData(name);
+        if (data === null)
+        {
+            return;
+        }
+    }
+    let city = document.querySelector(".favouriteTemplate").content.cloneNode(true);
+    let favourites = document.querySelector(".favourites");
     favourites.appendChild(city);
     UpdateBackground();
     CreateFavouriteCity(data);
@@ -61,6 +82,10 @@ function CreateFavouriteCity(data)
     let deleteButton = city.querySelector(".delete");
     deleteButton.addEventListener("click", function(event)
     {
+        let localCities = GetCitiesFromStorage();
+        let name = city.querySelector(".cityName");
+        localCities.splice(localCities.indexOf(name), 1);
+        UpdateStorage(localCities);
         city.remove();
         UpdateBackground();
     });
@@ -86,15 +111,36 @@ function UpdateBackground()
     }
 }
 
-
-UpdateBackground();
-UpdateLocation();
-
-let input = document.querySelector(".find");
-input.addEventListener("keyup", function(event)
+function GetCitiesFromStorage()
 {
-    if (event.key === "Enter")
-    {
-        AddFavouriteCity();
+    if (localStorage.favourites === undefined || localStorage.favourites === "") {
+        return [];
     }
-});
+    return JSON.parse(localStorage.favourites);
+}
+
+function UpdateStorage(array)
+{
+    localStorage.setItem("favourites", JSON.stringify(array));
+}
+
+window.onload = function()
+{
+    //localStorage.removeItem("favourites");
+    UpdateBackground();
+    UpdateLocation();
+
+    let input = document.querySelector(".find");
+    input.addEventListener("keyup", function(event)
+    {
+        if (event.key === "Enter")
+        {
+            ParseName();
+        }
+    });
+    let cities = GetCitiesFromStorage();
+    for (let i = 0; i < cities.length; i++)
+    {
+        AddFavouriteCity(cities[i]);
+    }
+}
