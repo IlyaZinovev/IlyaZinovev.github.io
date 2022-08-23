@@ -1,5 +1,6 @@
 const API_KEY = "64a15844ff104b88a11205731212109";
 const BASE_URL = "http://api.weatherapi.com/v1/current.json?key=" + API_KEY + "&q=";
+const DEFAULT_CITY = "Saint Petersburg"
 
 async function LoadData(city)
 {
@@ -21,9 +22,41 @@ async function LoadData(city)
     }
 };
 
+function GetCitiesFromStorage()
+{
+    if (localStorage.favourites === undefined || localStorage.favourites === "") {
+        return [];
+    }
+    return JSON.parse(localStorage.favourites);
+}
+
+function UpdateStorage(array)
+{
+    localStorage.setItem("favourites", JSON.stringify(array));
+}
+
 function UpdateLocation()
 {
-    let position = navigator.geolocation.getCurrentPosition(UpdateMainCity);
+    let position = navigator.geolocation.getCurrentPosition(LoadMainCity, LoadDefaultCity);
+}
+
+async function LoadMainCity(position)
+{
+    let coordinates = position["coords"]["latitude"] + "," + position["coords"]["longitude"];
+    let data =  await LoadData(coordinates);
+    UpdateMainCity(data);
+}
+
+async function LoadDefaultCity(position)
+{
+    let data = await LoadData(DEFAULT_CITY);
+    UpdateMainCity(data);
+}
+
+function UpdateMainCity(data)
+{
+    let city = document.querySelector(".mainCity");
+    FillCity(data, city);
 }
 
 async function ParseName()
@@ -63,18 +96,6 @@ async function AddFavouriteCity(name=null, data=null)
     CreateFavouriteCity(data);
 }
 
-function FillCity(data, city)
-{
-    city.querySelector(".cityName").innerHTML = data["location"]["name"];
-    city.querySelector(".temperature").innerHTML = data["current"]["temp_c"] + "°C";
-    city.querySelector(".wind").innerHTML = data["current"]["wind_dir"] + " " + data["current"]["wind_kph"] + " kph";
-    city.querySelector(".cloud").innerHTML = data["current"]["cloud"] + "%";
-    city.querySelector(".pressure").innerHTML = data["current"]["pressure_mb"] + " MilliBars";
-    city.querySelector(".humidity").innerHTML = data["current"]["humidity"] + "%";
-    city.querySelector(".coordinates").innerHTML = data["location"]["lat"] + ", " + data["location"]["lon"];
-    city.querySelector(".icon").src = "https:" + data["current"]["condition"]["icon"];
-}
-
 function CreateFavouriteCity(data)
 {
     let cities = document.querySelector(".favourites");
@@ -92,12 +113,16 @@ function CreateFavouriteCity(data)
     });
 }
 
-async function UpdateMainCity(position)
+function FillCity(data, city)
 {
-    let coordinates = position["coords"]["latitude"] + "," + position["coords"]["longitude"];
-    let data =  await LoadData(coordinates);
-    let city = document.querySelector(".mainCity");
-    FillCity(data, city);
+    city.querySelector(".cityName").innerHTML = data["location"]["name"];
+    city.querySelector(".temperature").innerHTML = data["current"]["temp_c"] + "°C";
+    city.querySelector(".wind").innerHTML = data["current"]["wind_dir"] + " " + data["current"]["wind_kph"] + " kph";
+    city.querySelector(".cloud").innerHTML = data["current"]["cloud"] + "%";
+    city.querySelector(".pressure").innerHTML = data["current"]["pressure_mb"] + " MilliBars";
+    city.querySelector(".humidity").innerHTML = data["current"]["humidity"] + "%";
+    city.querySelector(".coordinates").innerHTML = data["location"]["lat"] + ", " + data["location"]["lon"];
+    city.querySelector(".icon").src = "https:" + data["current"]["condition"]["icon"];
 }
 
 function UpdateBackground()
@@ -112,22 +137,8 @@ function UpdateBackground()
     }
 }
 
-function GetCitiesFromStorage()
-{
-    if (localStorage.favourites === undefined || localStorage.favourites === "") {
-        return [];
-    }
-    return JSON.parse(localStorage.favourites);
-}
-
-function UpdateStorage(array)
-{
-    localStorage.setItem("favourites", JSON.stringify(array));
-}
-
 window.onload = function()
 {
-    //localStorage.removeItem("favourites");
     UpdateBackground();
     UpdateLocation();
 
