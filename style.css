@@ -165,5 +165,9 @@ p
     {
         width: 100%
     }
+    .cityName
+    {
+        width: 30%;
+    }
 }
 

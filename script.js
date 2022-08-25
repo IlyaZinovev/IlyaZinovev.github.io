@@ -1,5 +1,5 @@
 const API_KEY = "64a15844ff104b88a11205731212109";
-const BASE_URL = "http://api.weatherapi.com/v1/current.json?key=" + API_KEY + "&q=";
+const BASE_URL = "https://api.weatherapi.com/v1/current.json?key=" + API_KEY + "&q=";
 const DEFAULT_CITY = "Saint Petersburg"
 
 async function LoadData(city)
