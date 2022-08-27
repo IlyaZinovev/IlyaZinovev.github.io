@@ -1,6 +1,6 @@
 html
 {
-    background: linear-gradient(white, #305341);
+    background-color: #212121;
     height: 100%;
 }   
 .favouriteIcon
@@ -15,11 +15,11 @@ html
 }
 .weatherParam
 {
-    background-color: rgb(30, 69, 69);
+    background-color: #D8D8D8;
     width: 100%;
     margin-top: 0.5%;
     margin-bottom: 0.5%;
-    color: white;
+    color: black;
 }
 ul
 {
@@ -28,12 +28,12 @@ ul
 }
 h1, h2
 {
-    color: rgb(12, 26, 26);
+    color: white;
 }
 button
 {
-    background-color: rgb(30, 69, 69);
-    color: white;
+    background-color: white;
+    color: black;
     border: 0;
     height: fit-content;
 }
@@ -75,10 +75,9 @@ button
 {
     width: 40%;
     padding: 1%;
-}
-.favouriteCityInfo
-{
-    margin-bottom: 5%;
+    background-color:#353535;
+    margin: 1%;
+    border-radius: 20px;
 }
 .mainCityInfo
 {
@@ -99,7 +98,7 @@ p
 }
 .mainParams
 {
-    width: 30%;
+    width: 40%;
 }
 .mainCityInfo
 {
@@ -107,7 +106,8 @@ p
 }
 .temperature
 {
-    margin: 10%;
+    margin-left: 10%;
+    margin-right: 10%;
 }
 @media screen and (max-width: 768px)
 {
@@ -168,6 +168,14 @@ p
     .cityName
     {
         width: 30%;
+    }
+    .favouriteCity
+    {
+        margin-top: 5%;
+    }
+    .favouriteParams
+    {
+        margin-bottom: 5%;
     }
 }
 
