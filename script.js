@@ -92,7 +92,6 @@ async function AddFavouriteCity(name=null, data=null)
     let city = document.querySelector(".favouriteTemplate").content.cloneNode(true);
     let favourites = document.querySelector(".favourites");
     favourites.appendChild(city);
-    UpdateBackground();
     CreateFavouriteCity(data);
 }
 
@@ -109,7 +108,6 @@ function CreateFavouriteCity(data)
         localCities.splice(localCities.indexOf(name), 1);
         UpdateStorage(localCities);
         city.remove();
-        UpdateBackground();
     });
 }
 
@@ -125,21 +123,8 @@ function FillCity(data, city)
     city.querySelector(".icon").src = "https:" + data["current"]["condition"]["icon"];
 }
 
-function UpdateBackground()
-{
-    let site = document.querySelector("html");
-    site.style.height = "fit-content";
-    let heightContent = site.offsetHeight;
-    site.style.height = "100%";
-    if (site.offsetHeight < heightContent)
-    {
-        site.style.height = "fit-content";
-    }
-}
-
 window.onload = function()
 {
-    UpdateBackground();
     UpdateLocation();
 
     let input = document.querySelector(".find");
