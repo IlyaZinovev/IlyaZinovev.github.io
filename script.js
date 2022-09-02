@@ -4,22 +4,22 @@ const DEFAULT_CITY = "Saint Petersburg"
 
 async function LoadData(city)
 {
+    let url = BASE_URL + city;
+    let data = null;
     try
     {
-        let url = BASE_URL + city;
         let res = await fetch(url);
         if (res.status != 200)
         {
             throw new Error();
         }
-        let data = await res.json();
-        return data;
+        data = await res.json();
     }
     catch(err)
     {
-        window.alert("There is no city like that!");
-        return null;
+        window.alert("API Error: Maybe there is no city like that");
     }
+    return data;
 };
 
 function GetCitiesFromStorage()
@@ -64,10 +64,6 @@ async function ParseName()
     let input = document.querySelector(".find");
     let data = await LoadData(input.value);
     input.value = "";
-    if (data === null)
-    {
-        return;
-    }
     let cities = GetCitiesFromStorage();
     let name = data["location"]["name"];
     if (cities.includes(name)) {
@@ -84,10 +80,6 @@ async function AddFavouriteCity(name=null, data=null)
     if (data === null)
     {
         data = await LoadData(name);
-        if (data === null)
-        {
-            return;
-        }
     }
     let city = document.querySelector(".favouriteTemplate").content.cloneNode(true);
     let favourites = document.querySelector(".favourites");
