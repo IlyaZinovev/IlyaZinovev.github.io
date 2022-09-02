@@ -121,7 +121,7 @@ function FillCity(data, city)
     city.querySelector(".humidity").innerHTML = data["current"]["humidity"] + "%";
     city.querySelector(".coordinates").innerHTML = data["location"]["lat"] + ", " + data["location"]["lon"];
     city.querySelector(".icon").src = "https:" + data["current"]["condition"]["icon"];
-}
+} 
 
 window.onload = function()
 {

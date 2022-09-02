@@ -109,6 +109,10 @@ p
     margin-left: 10%;
     margin-right: 10%;
 }
+.delete
+{
+    align-self: flex-start;
+}
 @media screen and (max-width: 768px)
 {
     .favourites
